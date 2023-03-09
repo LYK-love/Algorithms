@@ -4,12 +4,13 @@ import java.util.Map;
 /**
  * Given a string s, find the length of the longest substring without repeating characters.
  */
-class Solution {
+class Solution3 {
     
 
     /**
      * using sliding window with hashmap
      * 
+     * Complexity: just scan the string one time, thus O(n)
      * @param s
      * @return
      */
