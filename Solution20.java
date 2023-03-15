@@ -8,8 +8,11 @@ import java.util.Stack;
  * Open brackets must be closed by the same type of brackets.
  * Open brackets must be closed in the correct order.
  * Every close bracket has a corresponding open bracket of the same type.
+ *
  */
 class Solution20 {
+
+    //用stack就能解决
     public boolean isValid(String s) {
         Stack<Character> bracket_char_stack = new Stack<>(); //This stack only stores bracket chars.
         for( int i = 0; i < s.length(); i++ )
