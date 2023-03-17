@@ -220,3 +220,8 @@ head.next = reverseBetween(head.next, m - 1, n - 1);
 return head;
 }
 ```
+
+## Remove Element in List
+* [Remove Element of given value in list](https://leetcode.com/problems/remove-element/description/)
+* [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+这类题目的难点在于一般都要求O(1)的额外空间复杂度, 即不能使用额外的数据结构. 对于线性序列的查重, 可以用快慢指针来解决. 

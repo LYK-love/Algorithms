@@ -96,19 +96,19 @@ public class ListNode {
 
 
     /**
-     * 给定一个索引区间 [start, end] (索引从 1 开始), 仅仅反转区间中的链表元素.
+     * 给定一个索引区间 [start, last] (索引从 1 开始), 仅仅反转区间中的链表元素.
      * @param head
      * @param start
-     * @param end
+     * @param last
      * @return the head node after the reverse
      */
-    public static ListNode reverseBetween(ListNode head, int start, int end)
+    public static ListNode reverseBetween(ListNode head, int start, int last)
     {
         //相当于反转前 n 个元素
         if(start == 1)
-            return reverse_foremost_N_nodes(head,end);
+            return reverse_foremost_N_nodes(head,last);
 
-        head.next = reverseBetween(head, start-1,end-1);
+        head.next = reverseBetween(head, start-1,last-1);
         return head;
     }
 
