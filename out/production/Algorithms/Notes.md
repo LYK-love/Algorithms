@@ -107,4 +107,122 @@ https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
 ```
 
 
-我们要删除离莫急额点
+## Reverse Linked List
+我们规定链表节点的索引从 1 开始
+
+### Reverse the Whole Linked List
+
+
+
+```java
+// 输入一个节点 head, 将「以 head 为起点」的链表反转, 并返回反转之后的头结点.
+ListNode reverse(ListNode head) {
+    if (head == null || head.next == null) {
+        return head;
+    }
+    ListNode last = reverse(head.next);
+    head.next.next = head;
+    head.next = null; //当链表递归反转之后，新的头结点是 last，而之前的 head 变成了最后一个节点，别忘了链表的末尾要指向 null：
+    return last;
+}
+```
+
+比如说我们想反转这个链表：
+![img.png](assets/img.png)
+
+那么输入 reverse(head) 后，会在这里进行递归：
+```java
+ListNode last = reverse(head.next);
+```
+根据刚才的函数定义, 这段代码会产生：
+![img_1.png](assets/img_1.png)
+
+这个 reverse(head.next) 执行完成后，整个链表就成了这样：
+
+
+并且根据函数定义，reverse 函数会返回反转之后的头结点，我们用变量 last 接收了。
+
+现在再来看下面的代码：
+```java
+head.next.next = head;
+```
+
+接下来：
+```java
+head.next = null;
+return last;
+```
+
+### 反转链表前 N 个节点
+这次我们实现一个这样的函数：
+```java
+// 将链表的前 n 个节点反转（n <= 链表长度）
+ListNode reverseN(ListNode head, int n)
+比如说对于下图链表，执行 reverseN(head, 3)：
+```
+
+解决思路和反转整个链表差不多，只要稍加修改即可：
+```java
+ListNode successor = null; // 后驱节点
+
+// 反转以 head 为起点的 n 个节点，返回新的头结点
+ListNode reverseN(ListNode head, int n) {
+if (n == 1) {
+// 记录第 n + 1 个节点
+successor = head.next;
+return head;
+}
+// 以 head.next 为起点，需要反转前 n - 1 个节点
+ListNode last = reverseN(head.next, n - 1);
+
+    head.next.next = head;
+    // 让反转之后的 head 节点和后面的节点连起来
+    head.next = successor;
+    return last;
+}
+```
+
+具体的区别：
+
+1、base case 变为 n == 1，反转一个元素，就是它本身，同时要记录后驱节点。
+
+2、刚才我们直接把 head.next 设置为 null，因为整个链表反转后原来的 head 变成了整个链表的最后一个节点。但现在 head 节点在递归反转之后不一定是最后一个节点了，所以要记录后驱 successor（第 n + 1 个节点），反转之后将 head 连接上。
+
+### 反转链表的一部分
+
+给一个索引区间 [m, n]（索引从 1 开始），仅仅反转区间中的链表元素。
+```java
+ListNode reverseBetween(ListNode head, int m, int n)
+
+```
+首先，如果 m == 1，就相当于反转链表开头的 n 个元素嘛，也就是我们刚才实现的功能：
+```java
+ListNode reverseBetween(ListNode head, int m, int n) {
+// base case
+if (m == 1) {
+// 相当于反转前 n 个元素
+return reverseN(head, n);
+}
+// ...
+}
+```
+
+如果 m != 1 , 我们就使用递归：
+
+```java
+ListNode reverseBetween(ListNode head, int m, int n) {
+// base case
+if (m == 1) {
+return reverseN(head, n);
+}
+// 前进到反转的起点触发 base case
+head.next = reverseBetween(head.next, m - 1, n - 1);
+return head;
+}
+```
+
+## Remove Element in List
+* [Remove Element of given value in list](https://leetcode.com/problems/remove-element/description/)
+* [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+
+这类题目的难点在于一般都要求O(1)的额外空间复杂度, 即不能使用额外的数据结构. 对于线性序列的查重, 可以用快慢指针来解决. 

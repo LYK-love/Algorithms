@@ -224,4 +224,124 @@ return head;
 ## Remove Element in List
 * [Remove Element of given value in list](https://leetcode.com/problems/remove-element/description/)
 * [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+
 这类题目的难点在于一般都要求O(1)的额外空间复杂度, 即不能使用额外的数据结构. 对于线性序列的查重, 可以用快慢指针来解决. 
+# Pattern Matching
+The act of checking a given sequence of **tokens** (text) for the presence of the constituents of some
+**pattern**.
+
+* Def:
+    * Pattern of length: $M$
+    * Text of length: $N$
+
+## Brute Force
+
+
+
+```java
+// 暴力匹配（伪码）
+int search(String pat, String txt) {
+    int M = pat.length;
+    int N = txt.length;
+    for (int i = 0; i <= N - M; i++) {
+        int j;
+        for (j = 0; j < M; j++) {
+            if (pat[j] != txt[i+j])
+                break;
+        }
+        // pat 全都匹配了
+        if (j == M) return i;
+    }
+    // txt 中不存在 pat 子串
+    return -1;
+}
+```
+
+
+
+* Worst Case:
+
+  > Text = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXY
+  > Pattern = XXXXY
+
+* Complexity:
+
+    *  空间复杂度: $O(1)$ (不需要额外的空间)
+
+    * 时间复杂度:  $O(MN)$
+
+## KMP Algorithm
+
+Knuth-Morris-Pratt Algorithm
+
+https://people.cs.pitt.edu/~aus/cs1501/KMP_algorithm.pdf
+
+
+
+![image-20230318234247458](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234247458.png)
+
+* Takes advantage of the information about already matched characters to reduce the number of comparisons. 
+* Avoids backing up in the text (only moves forward).
+
+
+
+* To keep track of available shifts during each mismatched character we build a DFA (deterministic finite-state automata). 
+  * DFA is constructed just **from the pattern** and before the execution.
+* Complexity: 
+  * 在我们的实现中, DFA是一个二维数组, 空间复杂度为 $O(256M) = O(M)$
+  * 构建DFA(大小为$256M$)所需的时间复杂度是 $O(256M) = O(M)$. 而DFA构建好后, 进行模式匹配的时间仅仅为$O(N)$, 因为它不会回退text的指针`i`, 即只扫描一遍text
+
+### DFA Construction
+
+* DFA的状态数量和模式串pattern长度相等
+
+* 在字符串匹配题目中, DFA接受的token都是ASCII字符, 总共不会超过 256 种
+
+* 所以我们就构造数组`dfa[256][M]`来包含所有情况, 并且明确`dfa`数组的含义：
+
+  > `next = dp[ch][j] `表示, 当前是状态`j`，遇到了字符`ch`，应该转移到状态`next`
+
+* 注意到, KMP算法的DFA只与pattern有关, 与text无关
+
+* ??? 下面这段没看懂, 为什么可以用这种方式构建影子状态`X`?
+
+对于如何构建这个`dp`数组，需要一个辅助状态`X`，它永远比当前状态`j`落后一个状态，拥有和`j`最长的相同前缀，我们给它起了个名字叫「影子状态」。
+
+在构建当前状态`j`的转移方向时，只有字符`pat[j]`才能使状态推进（`dp[j][pat[j]] = j+1`）；而对于其他字符只能进行状态回退，应该去请教影子状态`X`应该回退到哪里（`dp[j][other] = dp[X][other]`，其中`other`是除了`pat[j]`之外所有字符）。
+
+对于影子状态`X`，我们把它初始化为 0，并且随着`j`的前进进行更新，更新的方式和 search 过程更新`j`的过程非常相似（`X = dp[X][pat[j]]`）。
+
+
+
+![image-20230318234057390](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234057390.png)
+
+
+
+
+
+1. 
+
+![image-20230318234105803](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234105803.png)
+
+
+
+![image-20230318234118961](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234118961.png)
+
+
+
+![image-20230318234128837](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234128837.png)
+
+
+
+![image-20230318234139522](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234139522.png)
+
+
+
+![image-20230318234147538](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234147538.png)
+
+
+
+![image-20230318234203712](/Users/lyk/Library/Application Support/typora-user-images/image-20230318234203712.png)
+
+
+
