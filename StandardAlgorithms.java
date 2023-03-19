@@ -4,6 +4,7 @@ public class StandardAlgorithms {
      * [5,7,7,8,8,10]
      *
      * search the first occurrence of the given value in a sorted array.
+     * 二分查找很简单, 但查找二分查找左侧边界需要一些更细致的判断
      * The time complexity is O(log N)
      * @param nums sorted array, length = N
      * @param target given value
@@ -14,18 +15,19 @@ public class StandardAlgorithms {
         int left = 0;
         int right = nums.length-1;
 
-        //searching space: [left, right]
-        //At each iteration we shrink the searching space.
+        //searching space: [left, right]. At each iteration we shrink the searching space.
 
         //In beginning of the last iteration, the searching space = [left, right], left == right. Then mid = left = right. So we only have to compare only one element( nums[left == right == mid]) with `target`
         //During the last iteration:
-        //1. If search hit, we have nums[mid = left = right] = target, then we execute `right = mid - 1;`. So after the searching process, we get searching space[left, left -1].
+        //1. If search hit( we find the target, and due to our special design `right = mid - 1`, which will be explained laterm we can ensure the target is the leftmost occurrence),
+        //  we have nums[mid = left = right] = target, then we execute `right = mid - 1;`. So after the searching process, we get searching space[left, left -1].
         //2. If target is not in the array and nums[0] < target < nums[nums.length-1]. It's possible that nums[mid] < or > target. So we get searching space[left, left -1] or [left+1,left]
 
         //3. If the target value is larger than all values of nums, we have mid == left == right == nums.length - 1, then we execute `left = mid+1;`, so we get the searching space[left, right] = [nums.length, nums.length-1].
         //4. If the target value is less than all values of nums, we have mid == left == right == 0, then we execute `right = mid-1;`, so we get the searching space[left, right] = [0, -1].
         //
         //In all cases, after the iterations, the searching space is null ( left bound > right bound ), which indicates that the search is over.
+        //这也是循环条件为`left <= right`而非`left < right`的原因. 对于前者, 当搜索空间为空时循环终止; 对于后者, 循环终止后搜索空间还会剩下一个元素, 还需要特盘。
 
         //If case 1, then left is the index of the first occurrence of target.
         // And it's possible that left = 0, right = -1, nums[left] == target. In this case we have answer = 0.
@@ -54,11 +56,10 @@ public class StandardAlgorithms {
             //  e.g: {0,1,2,3,4}
             //case B: If duplicated targets do exist in [LEFT, MID), then we iterate the shrinking until case A happens.
             //  e.g: //{0,1,2,2,2,5,6}
-
-
             if(nums[mid] == target){
                 right = mid - 1;
             }
+            //由于搜索空间是个闭区间, 所以在已知nums[mid]不匹配的情况下, 后面的搜索空间中就不需要包括mid了. 只需搜索[left, mid-1] or [mid+1, right]
             else if(nums[mid] > target)
             {
                 right = mid-1;
