@@ -345,3 +345,15 @@ https://people.cs.pitt.edu/~aus/cs1501/KMP_algorithm.pdf
 
 
 
+# Search
+
+## 寻找左侧边界的二分搜索
+
+这个算法的关键在于, 使用`[left, right]`作为搜索空间. 为了得到最左侧的target, 如果`nums[mid] == target`, 不会直接返回, 而是会缩小右边界, 即新的搜索空间为`[LEFT, MID - 1]`.
+
+由于while循环条件的设置, 最后一次迭代中总是有`left == right`, 搜索空间为`[left, left]`.
+
+1. 如果`nums[MID]`已经是最左侧的target了, 那么target大于`[LEFT, MID - 1]`中的所有元素.  则最后一次迭代中的搜索空间为`[MID-1, MID-1]`, 迭代结束后, 搜索空间变为`[MID, MID-1]` (  = null ). 因此`left = MID-1`, 为正确结果.
+
+2. 如果MID左侧确实还有target, 那么就继续在`[LEFT, MID-1]`搜索, 直到搜索到最左边的target为止, 此时又回到了情况1
+
