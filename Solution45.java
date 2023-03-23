@@ -34,10 +34,8 @@ class Solution45 {
     {
         int N = nums.length;
 
-        if(p >= N)
-        {
+        if(p >= N-1)
             return 0;
-        }
 
         //子问题已经计算过
         if( memo[p] != N )
@@ -64,10 +62,10 @@ class Solution45 {
     //[2,3,0,9,4]
 
     /**
-     *
+     * get the subarray of nums. The subarray is formed by the elements in the jump scope of nums[p].
      * @param nums positive integer array
      * @param p current position
-     * @return
+     * @return the slice array of elements in the jump scope of nums[p]
      */
     private int[] get_elements_in_jump_scope(int[] nums, int p)
     {
@@ -82,32 +80,7 @@ class Solution45 {
         return elements_in_jump_scope;
     }
 
-    private int get_index_of_max_element(int[] nums)
-    {
-        if(nums == null || nums.length == 0)
-            return -1;
 
-        int max_val = nums[0];
-        int idx_of_max_val = 0;
-        for(int i = 1; i < nums.length; i++)
-        {
-            if( max_val < nums[i])
-            {
-                max_val = nums[i];
-                idx_of_max_val = i;
-            }
-        }
-        return idx_of_max_val;
-    }
-
-    private int get_index_of_the_last_occurrence_of_max_element(int[] nums)
-    {
-        int idx_of_the_first_occurrence_of_max_element = get_index_of_max_element(nums);
-        int p = idx_of_the_first_occurrence_of_max_element;
-        while( p + 1 < nums.length && nums[p+1] == nums[p])
-            p++;
-        return p;
-    }
 
     public static void main(String[] args)
     {
