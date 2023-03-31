@@ -62,5 +62,51 @@ public class ArrayUtils {
         return min;
     }
 
+    /**
+     * Create an array copy of nums, this copy removes the first occurrence of the specified element from this array.
+     * @param nums
+     * @param element
+     * @return
+     */
+    public static int[] remove(int[] nums, int element)
+    {
+        int[] new_arr = new int[nums.length-1];
+        for(int i = 0, j = 0; i < new_arr.length; j++)
+        {
+            if(nums[j] == element)
+            {
+                continue;
+            }
+
+            new_arr[i] = nums[j];
+            i++;
+        }
+        return new_arr;
+    }
+
+    /**
+     * Create an array copy of nums, this copy inserts the specified element at the specified position in this list.
+     * @param nums
+     * @param index
+     * @param element
+     * @return
+     */
+    public static int[] add(int[] nums, int index, int element)
+    {
+        int origin_len = nums.length;
+        int[] new_arr = new int[origin_len+1];
+        for(int i = 0, j=0; i < new_arr.length; i++)
+        {
+            if( i == index )
+            {
+                new_arr[i] = element;
+                continue;
+            }
+
+            new_arr[i] = nums[j];
+            j++;
+        }
+        return new_arr;
+    }
 
 }
