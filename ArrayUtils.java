@@ -85,6 +85,28 @@ public class ArrayUtils {
     }
 
     /**
+     * Create an array copy of nums, this copy removes the element of  given index
+     * @param nums
+     * @param index
+     * @return
+     */
+    public static int[] remove_with_index(int[] nums, int index)
+    {
+        int[] new_arr = new int[nums.length-1];
+        for(int i = 0, j = 0; i < new_arr.length; j++)
+        {
+            if(j == index)
+            {
+                continue;
+            }
+
+            new_arr[i] = nums[j];
+            i++;
+        }
+        return new_arr;
+    }
+
+    /**
      * Create an array copy of nums, this copy inserts the specified element at the specified position in this list.
      * @param nums
      * @param index
