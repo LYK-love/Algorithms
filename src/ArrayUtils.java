@@ -131,4 +131,27 @@ public class ArrayUtils {
         return new_arr;
     }
 
+    /**
+     * compare two 2-d arrays
+     * @param a
+     * @param a2
+     * @return
+     */
+    public static boolean equals(int[] a, int[] a2) {
+        if (a==a2)
+            return true;   //1.如果名字相同，返回true
+        if (a==null || a2==null)
+            return false;  //2.如果其中一个为空，返回false
+
+        int length = a.length;
+        if (a2.length != length)
+            return false;  //3.如果两个数组长度不同，返回false
+
+        for (int i=0; i<length; i++)
+            if (a[i] != a2[i])
+                return false;  //4.每一个元素进行对比，如果有一个不同，返回false
+
+        return true;       //5.走到这一步就说明数组中每个元素都相等，返回true
+    }
+
 }

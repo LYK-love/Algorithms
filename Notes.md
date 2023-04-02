@@ -128,14 +128,14 @@ ListNode reverse(ListNode head) {
 ```
 
 比如说我们想反转这个链表：
-![img.png](assets/img.png)
+![img.png](Projects/MyOfficialProjects/Algorithms/assets/img.png)
 
 那么输入 reverse(head) 后，会在这里进行递归：
 ```java
 ListNode last = reverse(head.next);
 ```
 根据刚才的函数定义, 这段代码会产生：
-![img_1.png](assets/img_1.png)
+![img_1.png](Projects/MyOfficialProjects/Algorithms/assets/img_1.png)
 
 这个 reverse(head.next) 执行完成后，整个链表就成了这样：
 

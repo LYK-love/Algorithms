@@ -72,8 +72,7 @@ class Solution46 {
             track.remove(track.size() - 1);
         }
     }
-    //java 认为在迭代过程中，容器应当保持不变。因此，java 容器中通常保留了一个域称为 modCount，每次你对容器修改，这个值就会加1。当你调用 iterator 方法时，返回的迭代器会记住当前的 modCount，随后迭代过程中会检查这个值，一旦发现这个值发生变化，就说明你对容器做了修改，就会抛异常
-
+    
     public static void main(String[] args)
     {
         int[] nums = {2,3,1};
