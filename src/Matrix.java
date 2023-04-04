@@ -1,7 +1,10 @@
 import io.vavr.Tuple2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
+ * M*N matrix
  */
 public class Matrix{
     private int[][] m; //M * N matrix
@@ -13,6 +16,11 @@ public class Matrix{
         this.m = m;
         M = m.length;
         N = m[0].length;
+    }
+
+    public Matrix(List<List<Integer>> m)
+    {
+        this( ArrayUtils.mapToIntArray_2D(m));
     }
 
     public int[][] get_m()
@@ -135,5 +143,88 @@ public class Matrix{
         }
         return sb.toString();
     }
+
+
+    /**
+     * return all elements of the matrix in spiral order( clockwise )
+     * E.g:
+     * matrix:
+     * 1 2 3
+     * 4 5 6
+     * 7 8 9
+     *
+     * Then the spiral order:
+     * 1 2 3 6 9 8 7 4 5
+     *
+     * @return
+     */
+    public List<Integer> spiral_order()
+    {
+        List<Integer> res = new ArrayList<>();
+
+        StringBuilder sb = new StringBuilder();
+        for( int j = 0; j < N; j++ )
+            res.add(m[0][j]);
+
+        for( int i = 1; i < M; i++ )
+            res.add(m[i][N-1]);
+
+        //If the current matrix only has one row, then don't need to traverse inversely
+        //e.g: matrix: 5 6 7. Then the spiral order: 5 6 7. We don;t have to traverse inversely, which results in: 5 6 7 6
+        if( M == 1 )
+            ;
+        else
+        {
+            for( int j = N-2; j >= 0; j-- )
+                res.add(m[M-1][j]);
+        }
+
+        //The same as former
+        if( N == 1 )
+            ;
+        else
+        {
+            for( int i = M-2; i >= 1; i-- )
+                res.add(m[i][0]);
+        }
+
+        if(M <= 2 || N <= 2)
+            ;
+        else
+        {
+            Matrix inner_matrix = get_inner_matrix();
+            res.addAll(inner_matrix.spiral_order());
+        }
+        return res;
+
+    }
+
+    /**
+     * Get a deep copy of inner matrix of current matrix. If the current matrix is too small to have an inner matrix, then return null;
+     * An inner matrix has size (M-2) * (N-2).
+     * E.g:
+     * current matrix:
+     * 1 2 3 4
+     * 4 5 6 8
+     * 7 8 9 10
+     * 11 12 13 14
+     *
+     * Then the returned inner matrix:
+     *  5 6
+     *  7 8
+     *
+     * @return
+     */
+    private Matrix get_inner_matrix()
+    {
+        if(M <= 2 || N <= 2)
+            return null;
+
+        int[][] inner_m = new int[M-2][N-2];
+        ArrayUtils.matrix_deep_copy(m,1,1,inner_m,0,0,M-2,N-2);
+        Matrix inner_matrix = new Matrix(inner_m);
+        return inner_matrix;
+    }
+
 
 }

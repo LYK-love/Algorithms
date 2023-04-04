@@ -22,7 +22,7 @@ public class Board{
         this.M = board.length;
         this.N = board[0].length;
         this.board = new char[M][N];
-        ArrayUtils.two_dimensions_array_deep_copy(board,0,this.board,0,M,N);
+        ArrayUtils.matrix_deep_copy(board,0,this.board,0,M,N);
 
     }
 

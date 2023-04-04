@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution37 {
     static final int M = 9;
     static final int N = 9;
@@ -11,7 +8,7 @@ class Solution37 {
 //        List<char[M][N]> res = new ArrayList<>();
 
         backtrack(board,0,0,resBoard);
-        ArrayUtils.two_dimensions_array_deep_copy(resBoard,0,board,0,M,N);
+        ArrayUtils.matrix_deep_copy(resBoard,0,board,0,M,N);
     }
 
     /**
@@ -36,7 +33,7 @@ class Solution37 {
         if( i == M)
         {
 
-            ArrayUtils.two_dimensions_array_deep_copy(board,0,resBoard,0,M,N);
+            ArrayUtils.matrix_deep_copy(board,0,resBoard,0,M,N);
             return;
         }
 

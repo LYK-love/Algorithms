@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.List;
 
 public class ArrayUtils {
 
@@ -8,16 +9,62 @@ public class ArrayUtils {
      * @param srcPos
      * @param dest
      * @param destPos
-     * @param M
-     * @param N
+     * @param M lines
+     * @param N cols
      */
-    public static void two_dimensions_array_deep_copy(char[][] src,  int  srcPos,
-                                  char[][] dest, int destPos,
-                                  int M, int N)
+    public static void matrix_deep_copy(char[][] src, int  srcPos,
+                                        char[][] dest, int destPos,
+                                        int M, int N)
     {
         for( int k = 0; k < M; k++)
             System.arraycopy(src[k],0, dest[k],0, N);
     }
+
+
+    /**
+     * Deep copy a M*N sub-matrix(2-dimension array) from src to dest.
+     * @param src the source matrix.
+     * @param src_line_pos starting line position in the source matrix.
+     * @param src_element_pos starting col position in the source matrix.
+     * @param dest the destination matrix.
+     * @param dest_line_pos starting line position in the destination data.
+     * @param dest_element_pos starting col position in the destination data.
+     * @param M the number of lines to be copied.
+     * @param N the number of cols to be copied.
+     */
+    public static void matrix_deep_copy(int[][] src, int src_line_pos, int  src_element_pos,
+                                        int[][] dest, int dest_line_pos, int dest_element_pos,
+                                        int M, int N)
+    {
+        for( int k = src_line_pos, q = dest_line_pos ; k < src_line_pos + M; k++, q++ )
+            System.arraycopy(src[k],src_element_pos, dest[q],dest_element_pos, N);
+    }
+
+    public static int[] mapToIntArray(List<Integer> list)
+    {
+        int[] primitive = list.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
+        return primitive;
+    }
+
+    public static int[][] mapToIntArray_2D(List<List<Integer>> two_dimension_list)
+    {
+        int M = two_dimension_list.size();
+        int N = two_dimension_list.get(0).size();
+
+        int[][] res = new int[M][N];
+
+        for(int i = 0; i < M; i++)
+        {
+            res[i] = mapToIntArray(two_dimension_list.get(i));
+        }
+
+        return res;
+    }
+
+
+
 
     public static int get_index_of_the_first_occurrence_of_max_element(int[] nums)
     {
