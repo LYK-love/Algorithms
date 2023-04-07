@@ -25,6 +25,31 @@ public class Matrix{
         this( ArrayUtils.mapToIntArray_2D(m));
     }
 
+    /**
+     * Given a integer list(len = M*N), fill the matrix with its elements  in spiral order.
+     * e.g.
+     * list = {1,2,3,4,5,6,7,8,9}
+     *
+     * matrix =
+     *
+     * 1 2 3
+     * 8 9 4
+     * 7 6 5
+     *
+     * @param list
+     */
+    public void initialize_by_nums_in_spiral_order(List<Integer> list)
+    {
+        buildSquare(list,M,N);
+    }
+
+    public Matrix(int M, int N)
+    {
+        this.M = M;
+        this.N = N;
+        m = new int[M][N];// M * N Matrix, all elements are initialized t0 0
+    }
+
     public int[][] get_m()
     {
         return m;
@@ -123,9 +148,9 @@ public class Matrix{
      * E.g
      * Input: [[1,2,3],[4,5,6],[7,8,9]]
      * Output:
-     * 1 2 3
-     * 4 5 6
-     * 7 8 9
+     * "1 2 3" + '\n'
+     * "4 5 6" + '\n'
+     * "7 8 9" + '\n'
      *
      * @return
      */
@@ -226,6 +251,81 @@ public class Matrix{
         ArrayUtils.matrix_deep_copy(m,1,1,inner_m,0,0,M-2,N-2);
         Matrix inner_matrix = new Matrix(inner_m);
         return inner_matrix;
+    }
+
+
+
+    /**
+     * Assign values to the matrix by the nums in given list in Spiral Order.
+     * This function will:
+     * 1. Assign values to the outer boundary of the matrix  by the nums in given list in Spiral Order.
+     * 2. cut the num list and the matrix. So we have an inner matrix with smaller outer boundary, and the list is cut as well.
+     * 3. Recurve the above process using the smaller matrix and list.
+     *
+     *
+     * @param list number list, whose values are used to be assignd to the matrix in spiral order
+     * @param m the row num of the inner matrix
+     * @param n the col num of the inner matrix
+     */
+    private void buildSquare(List<Integer> list, int m, int n)
+    {
+
+        int k = 0;
+
+        int idx_of_first_row = ( M - m )/2;// the start row num of the inner matrix
+        int idx_of_last_row = idx_of_first_row + m - 1;//the last row num of the inner matrix
+        int idx_of_first_col = (N-n)/2;// the col row num of the inner matrix
+        int idx_of_last_col = idx_of_first_col + n - 1;//the last col num of the inner matrix
+
+        if( m == 0 || n == 0 )
+            return;
+        else if( m == 1 )
+        {
+            for( int j = idx_of_first_col; j <= idx_of_last_col; j++ )
+            {
+                this.m[idx_of_first_row][j] = list.get(k);
+                k++;
+            }
+            return;
+        }
+        else if( n == 1 )
+        {
+            for(int i = idx_of_first_row; i <= idx_of_last_row; i++ )
+            {
+                this.m[i][idx_of_first_col] = list.get(k);
+                k++;
+            }
+            return;
+        }
+        else
+        {
+            for( int j = idx_of_first_col; j <= idx_of_last_col; j++ )// the first row of  the inner matrix
+            {
+                this.m[idx_of_first_row][j] = list.get(k);
+                k++;
+            }
+            for(int i = idx_of_first_row + 1; i <= idx_of_last_row - 1; i++) // the last col of  the inner matrix
+            {
+                this.m[i][idx_of_last_col] = list.get(k);
+                k++;
+            }
+            for( int j = idx_of_last_col; j >=idx_of_first_col; j-- )// the last row of  the inner matrix
+            {
+                this.m[idx_of_last_row][j] = list.get(k);
+                k++;
+            }
+
+            for(int i = idx_of_last_row-1; i >= idx_of_first_row+1; i--) // the first col of  the inner matrix
+            {
+                this.m[i][idx_of_first_col] = list.get(k);
+                k++;
+            }
+
+            //now the boundary of current matrix is processed, we the cut the list and shrink the boundary to recursively process it.
+            buildSquare(list.subList(k, list.size()), m-2, n-2 );
+            return;
+        }
+
     }
 
 

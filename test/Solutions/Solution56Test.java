@@ -33,13 +33,12 @@ class Solution56Test {
 
 
         assertAll(
-//                () -> Assertions.assertEquals(ArrayUtils.toString(expected_output1), ArrayUtils.toString(s.merge(intervals1))),
-//                () -> Assertions.assertEquals(ArrayUtils.toString(expected_output2), ArrayUtils.toString(s.merge(intervals2))),
-//                () -> Assertions.assertEquals(ArrayUtils.toString(expected_output3), ArrayUtils.toString(s.merge(intervals3))),
+                () -> Assertions.assertEquals(ArrayUtils.toString(expected_output1), ArrayUtils.toString(s.merge(intervals1))),
+                () -> Assertions.assertEquals(ArrayUtils.toString(expected_output2), ArrayUtils.toString(s.merge(intervals2))),
+                () -> Assertions.assertEquals(ArrayUtils.toString(expected_output3), ArrayUtils.toString(s.merge(intervals3))),
                 () -> Assertions.assertEquals(ArrayUtils.toString(expected_output4), ArrayUtils.toString(s.merge(intervals4)))
 
 
                 );
-
     }
 }
