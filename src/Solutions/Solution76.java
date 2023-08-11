@@ -13,14 +13,14 @@ class Solution76 {
     //
 
     /**
-     * Dynamic window:
+     * Sliding window:
      * 1. Right shift the right boundary of the window until the window satisfies the condition.
      * 2. If this window is better than last one( in this case, is the length smaller than thr last one), substitute the record with the better one.
      * A record includes the window's start position and length of the window.
      * 3.Then right shift the left boundary of the window until the condition breaks.
      * 4. Back to step (1).
      *
-     * 对这道题而言， 由于t中的所有字符都要被包括在动态窗口中， 因此用hashmap来存储动态窗口。 当条件被满足（t的所有字符都被包括在window中， 包括重复的字符， 如：t中如果有2个A， 则window中至少也要有2个A。）时就计算当前window长度，
+     * 对这道题而言， 由于t中的所有字符都要被包括在动态窗口中， 因此用hashmap来存储滑动窗口。 当条件被满足（t的所有字符都被包括在window中， 包括重复的字符， 如：t中如果有2个A， 则window中至少也要有2个A。）时就计算当前window长度，
      * 如果比上一个记录短， 则记录下当前window。然后不断缩小window的左边界直到条件不满足，接着继续循环。
      * @param s
      * @param t
