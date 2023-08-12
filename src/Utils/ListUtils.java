@@ -1,6 +1,7 @@
 package Utils;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ListUtils {
@@ -47,5 +48,37 @@ public class ListUtils {
                 else return left > right? 1: -1; //从小到大
             }
         });
+    }
+
+    /**
+     * Get the string representation of the List with the same format in Java Standard.
+     * Note the null element will be represented as "null".
+     * e.g.:
+     * [1,null,2,null,3] -> "[1,null,2,null,3]"
+     * [[1,null,2,null,3],[1,null,3,2],[2,1,3]] -> "[[1,null,2,null,3],[1,null,3,2],[2,1,3]]"
+     * @param list
+     * @param toStringFunc
+     * @return
+     * @param <T>
+     */
+    public static<T> String toStringAsFormat(List<T> list, Function<T, String> toStringFunc)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(int i = 0 ; i < list.size(); i++)
+        {
+            T element = list.get(i);
+
+            if(element == null)
+                sb.append("null");
+            else
+                sb.append(toStringFunc.apply(element));
+
+            if(i!= list.size()-1)
+                sb.append(", ");
+        }
+        sb.append("]");
+        String res = sb.toString();
+        return res;
     }
 }

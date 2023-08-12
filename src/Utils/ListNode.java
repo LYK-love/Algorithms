@@ -28,13 +28,36 @@ public class ListNode {
     @Override
     public String toString()
     {
-        String res = String.valueOf(val);
+        ListNode current = this;
+        String res = String.valueOf(current.val);
+        current = current.next;
 
-        while(next != null) {
-            res += (" " + next.val);
-            next = next.next;
+        while(current != null) {
+            res += (" " + current.val);
+            current = current.next;
         }
+
         return res;
+    }
+
+    public static String toStringLikeList(ListNode head)
+    {
+        ListNode current = head;
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("[");
+        sb.append(head.val);
+        current = current.next;
+
+        while( current != null )
+        {
+            sb.append(", " + current.val);
+            current = current.next;
+        }
+        sb.append("]");
+
+        return sb.toString();
     }
 
 
@@ -42,6 +65,7 @@ public class ListNode {
      * 输入一个节点 head, 将「以 head 为起点」的链表反转, 并返回反转之后的头结点.
      * @param head
      * @return the head node after the reverse
+     *
      */
     private static ListNode reverse_linked_list(ListNode head)
     {
