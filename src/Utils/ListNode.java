@@ -62,7 +62,7 @@ public class ListNode {
 
 
     /**
-     * 输入一个节点 head, 将「以 head 为起点」的链表反转, 并返回反转之后的头结点.
+     * 输入一个单链表头结点，将该链表反转，返回新的头结点
      * @param head
      * @return the head node after the reverse
      *
@@ -123,6 +123,7 @@ public class ListNode {
 
     /**
      * 给定一个索引区间 [start, last] (索引从 1 开始), 仅仅反转区间中的链表元素.
+     *
      * @param head
      * @param start
      * @param last

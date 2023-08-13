@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Binary Tree Node.
+ */
 public class TreeNode {
     public int val;
     public TreeNode left;
