@@ -1,8 +1,7 @@
 package Solutions;
 
-import Utils.ListNode;
 import Utils.ListUtils;
-import Utils.TreeNode;
+import Structures.TreeNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package Solutions;
 
-import Utils.TreeNode;
+import Structures.TreeNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
