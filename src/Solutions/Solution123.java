@@ -34,12 +34,12 @@ public class Solution123 {
         else if( memo[day][hasStock][numOfMaxTransactions] == null)
         {
             if(  numOfMaxTransactions == 0)//[0,...,day-1]的最大交易次数为0, 这说明在`[0,...,day]`不会进行任何一次buy, 因此在第day天不可能sell
-                memo[day][0][numOfMaxTransactions] = dp(memo, day-1, 0, numOfMaxTransactions, prices);
+                memo[day][0][numOfMaxTransactions] = dp(memo, day-1, 0, numOfMaxTransactions, prices); //此时的 dp[i-1][1][k] == null
             else
                 memo[day][0][numOfMaxTransactions] = Math.max(dp(memo, day-1, 0, numOfMaxTransactions, prices), dp(memo, day-1, 1, numOfMaxTransactions,prices) + prices[day]);
 
             if(numOfMaxTransactions == 0)//[0,...,day-1]的最大交易次数为0, 这说明在`[0,...,day]`不会进行任何一次buy, 因此在第day天不可能buy
-                memo[day][1][numOfMaxTransactions] = dp(memo,day-1,1,numOfMaxTransactions, prices);
+                memo[day][1][numOfMaxTransactions] = dp(memo,day-1,1,numOfMaxTransactions, prices);//此时的 dp[i-1][1][k-1] == null
             else
                 memo[day][1][numOfMaxTransactions] = Math.max(dp(memo,day-1, 0, numOfMaxTransactions-1, prices) - prices[day], dp(memo,day-1,1,numOfMaxTransactions, prices));
         }

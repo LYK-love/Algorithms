@@ -186,7 +186,7 @@ public class ArrayUtils {
      * @param a2
      * @return
      */
-    public static boolean equals(int[] a, int[] a2) {
+    public static<T>  boolean equalsFor1D(T[] a, T[] a2) {
         if (a==a2)
             return true;   //1.如果名字相同，返回true
         if (a==null || a2==null)
@@ -202,6 +202,25 @@ public class ArrayUtils {
 
         return true;       //5.走到这一步就说明数组中每个元素都相等，返回true
     }
+
+    public static<T>  boolean equalsFor2D(T[][] a, T[][] a2) {
+        if (a==a2)
+            return true;   //1.如果名字相同，返回true
+        if (a==null || a2==null)
+            return false;  //2.如果其中一个为空，返回false
+
+        int length = a.length;
+        if (a2.length != length)
+            return false;  //3.如果两个数组长度不同，返回false
+
+        for (int i=0; i<length; i++)
+            if (!equalsFor1D(a[i], a2[i]))
+                return false;
+
+        return true;       //5.走到这一步就说明数组中每个元素都相等，返回true
+    }
+
+
 
     /**
      * Get the String representation of 2-D array. The result is the same as the String representation of its List<> version,
@@ -243,6 +262,37 @@ public class ArrayUtils {
 
         return sb.toString();
     }
+
+    public static Character[][] convertToCharacterArray(char[][] charArray) {
+        int rows = charArray.length;
+        int cols = charArray[0].length;
+
+        Character[][] characterArray = new Character[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                characterArray[i][j] = charArray[i][j]; // Autoboxing
+            }
+        }
+
+        return characterArray;
+    }
+
+    public static char[][] convertToCharArray(Character[][] characterArray) {
+        int rows = characterArray.length;
+        int cols = characterArray[0].length;
+
+        char[][] charArray = new char[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                charArray[i][j] = characterArray[i][j]; // Autoboxing
+            }
+        }
+
+        return charArray;
+    }
+
 
     /**
      * Sort a 2-D array by the value at the First Dimension
