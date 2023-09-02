@@ -1,5 +1,6 @@
 package Solutions;
 
+import Utils.WrapperValueComparator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -74,9 +75,9 @@ class Solution130Test {
 
 
         assertAll(
-                ()-> Assertions.assertTrue( equalsFor2D(res1, actual1) ),
-                ()-> Assertions.assertTrue( equalsFor2D(res2, actual2) ),
-                ()-> Assertions.assertTrue( equalsFor2D(res3, actual3) )
+                ()-> Assertions.assertTrue( equalsFor2D(res1, actual1, new WrapperValueComparator() ) ),
+                ()-> Assertions.assertTrue( equalsFor2D(res2, actual2, new WrapperValueComparator() ) ),
+                ()-> Assertions.assertTrue( equalsFor2D(res3, actual3, new WrapperValueComparator()) )
 
         );
 

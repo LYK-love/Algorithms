@@ -1,6 +1,8 @@
 package Utils;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class ArrayUtils {
@@ -182,11 +184,13 @@ public class ArrayUtils {
 
     /**
      * compare two 1-d arrays
+     *
      * @param a
      * @param a2
+     * @param comparator
      * @return
      */
-    public static<T>  boolean equalsFor1D(T[] a, T[] a2) {
+    public static<T>  boolean equalsFor1D(T[] a, T[] a2, Comparator<T> comparator) {
         if (a==a2)
             return true;   //1.如果名字相同，返回true
         if (a==null || a2==null)
@@ -197,13 +201,13 @@ public class ArrayUtils {
             return false;  //3.如果两个数组长度不同，返回false
 
         for (int i=0; i<length; i++)
-            if (a[i] != a2[i])
+            if ( comparator.compare(a[i], a2[i]) != 0)
                 return false;  //4.每一个元素进行对比，如果有一个不同，返回false
 
         return true;       //5.走到这一步就说明数组中每个元素都相等，返回true
     }
 
-    public static<T>  boolean equalsFor2D(T[][] a, T[][] a2) {
+    public static<T>  boolean equalsFor2D(T[][] a, T[][] a2, Comparator<T> comparator) {
         if (a==a2)
             return true;   //1.如果名字相同，返回true
         if (a==null || a2==null)
@@ -214,10 +218,28 @@ public class ArrayUtils {
             return false;  //3.如果两个数组长度不同，返回false
 
         for (int i=0; i<length; i++)
-            if (!equalsFor1D(a[i], a2[i]))
+            if ( !equalsFor1D(a[i], a2[i], comparator))
                 return false;
 
         return true;       //5.走到这一步就说明数组中每个元素都相等，返回true
+    }
+
+    /**
+     * 将基本数据类型数组转换为包装类型数组。
+     * @param array 要转换的基本数据类型数组
+     * @param wrapperType 包装类型的 Class 对象
+     * @return
+     * @param <T>
+     */
+    public static <T> T[] toWrapperArray(Object array, Class<T> wrapperType) {
+        int length = Array.getLength(array);
+        T[] result = (T[]) Array.newInstance(wrapperType, length);
+
+        for (int i = 0; i < length; i++) {
+            Array.set(result, i, Array.get(array, i));
+        }
+
+        return result;
     }
 
 

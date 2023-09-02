@@ -30,7 +30,7 @@ class Solution15 {
 
     /**
      *
-     * @param nums 必须是从小到大的有序数组， 允许元素重复
+     * @param nums 必须是从小到大的有序数组, 允许元素重复
      * @param start
      * @param n
      * @param target nSum要达到的和
