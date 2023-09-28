@@ -24,4 +24,5 @@ class Solution72Test {
                 () -> Assertions.assertEquals(expected_min_distance_b, actual_min_distance_b)
         );
     }
+
 }
