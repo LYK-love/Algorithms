@@ -3,6 +3,7 @@ package Utils;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 public class ArrayUtils {
@@ -327,5 +328,54 @@ public class ArrayUtils {
         ListUtils.sortByFirstDimension(pair_list);
         int[][] res_arr = mapToIntArray_2D(pair_list);
         matrix_deep_copy(res_arr,0,0,arr,0,0, arr.length, arr[0].length);
+    }
+
+    /**
+     * Converse a 2-D array into 1-D. The elements will be inserted by row.
+     * E.g, [[1,2][3,4]] -> [1,2,3,4]
+     */
+    public static int[] flattenArray(int[][] twoDArray)
+    {
+        // Calculate the total number of elements in the 2D array
+        int totalElements = 0;
+        for (int[] row : twoDArray) {
+            totalElements += row.length;
+        }
+
+        // Create a 1D array to hold all elements
+        int[] oneDArray = new int[totalElements];
+
+        // Copy elements from the 2D array to the 1D array
+        int index = 0;
+        for (int[] row : twoDArray) {
+            for (int element : row) {
+                oneDArray[index] = element;
+                index++;
+            }
+        }
+
+        return oneDArray;
+    }
+
+    public static int[] removeDuplicatesFromArray(int[] originalArray)
+    {
+        // Use a HashSet to store unique elements
+        HashSet<Integer> uniqueElements = new HashSet<>();
+
+        // Iterate through the original array and add unique elements to the HashSet
+        for (int element : originalArray) {
+            uniqueElements.add(element);
+        }
+
+        // Create a new array to hold the unique elements
+        int[] uniqueArray = new int[uniqueElements.size()];
+
+        // Copy elements from the HashSet to the new array
+        int index = 0;
+        for (int element : uniqueElements) {
+            uniqueArray[index] = element;
+            index++;
+        }
+        return uniqueArray;
     }
 }

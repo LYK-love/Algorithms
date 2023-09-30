@@ -62,17 +62,20 @@ public class ListNode {
 
 
     /**
-     * 输入一个单链表头结点，将该链表反转，返回新的头结点
+     * Given the head of a singly linked list, reverse the list, and return the head of the reversed list.
      * @param head
-     * @return the head node after the reverse
-     *
+     * @return the head nod eof the reversed list.
      */
     private static ListNode reverse_linked_list(ListNode head)
     {
+        /**
+         * head == null: 输入的linked list本身就为空.
+         * head.next == null: head is the last node of the list.
+         */
         if( head == null || head.next == null )
             return head;
 
-        ListNode last = reverse_linked_list(head.next);
+        ListNode last = reverse_linked_list(head.next);//reverse the sub-list, whose head will be returned.
         head.next.next = head;
         head.next = null;
         return last;

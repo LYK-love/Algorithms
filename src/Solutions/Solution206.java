@@ -6,7 +6,7 @@ public class Solution206 {
 
     /**
      * Given the head of a singly linked list, reverse the list, and return the head of the reversed list.
-     * @return     */
+     */
     public ListNode reverseList(ListNode head) {
 
         /**
